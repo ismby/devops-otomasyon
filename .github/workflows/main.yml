@@ -1,13 +1,16 @@
-name: Ilk DevOps Robotum
+name: Docker Insaat Robotu
 
-on: [push]  # Bu satir: Kod gönderildigi an calis demektir.
+on: [push]  # Sen kod gönderince çalış
 
 jobs:
-  selamla:
-    runs-on: ubuntu-latest
+  build-yapici:
+    runs-on: ubuntu-latest  # Ubuntu sunucu kiraladık
     steps:
-      - name: Kodu Cek
-        uses: actions/checkout@v2
+      - name: Malzemeleri Getir (Checkout)
+        uses: actions/checkout@v3
 
-      - name: Selam Ver
-        run: echo "Merhaba İsmail! Ben senin Robotunum ve is basi yaptim!"
+      - name: Keki Pisir (Docker Build)
+        run: docker build -t ismailin-otomatik-imaji .
+      
+      - name: Kanit Goster (Listele)
+        run: docker images
