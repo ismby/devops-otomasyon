@@ -1,0 +1,13 @@
+name: Ilk DevOps Robotum
+
+on: [push]  # Bu satir: Kod gönderildigi an calis demektir.
+
+jobs:
+  selamla:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu Cek
+        uses: actions/checkout@v2
+
+      - name: Selam Ver
+        run: echo "Merhaba İsmail! Ben senin Robotunum ve is basi yaptim!"
