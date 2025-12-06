@@ -1,16 +1,22 @@
-name: Docker Insaat Robotu
+name: Docker Hub Yukleyici
 
-on: [push]  # Sen kod gönderince çalış
+on: [push]
 
 jobs:
-  build-yapici:
-    runs-on: ubuntu-latest  # Ubuntu sunucu kiraladık
+  yukleme-isi:
+    runs-on: ubuntu-latest
     steps:
-      - name: Malzemeleri Getir (Checkout)
+      - name: Kodlari Cek
         uses: actions/checkout@v3
 
-      - name: Keki Pisir (Docker Build)
-        run: docker build -t ismailin-otomatik-imaji .
-      
-      - name: Kanit Goster (Listele)
-        run: docker images
+      - name: Docker Hub'a Giris Yap (Login)
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Imaj Olustur (Build)
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/ilk-otomasyon:latest .
+
+      - name: Magazaya Yukle (Push)
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/ilk-otomasyon:latest
